@@ -5,7 +5,6 @@ export interface ToDo {
   id: number;
   description: string;
   isDone: boolean;
-  // due: Date;
 }
 
 let data = [
@@ -20,19 +19,26 @@ let data = [
 const App = () => {
   const [toDos, setToDos] = useState(data);
 
+  const handleStrike = (strikedToDo: ToDo) =>
+    setToDos(
+      toDos.map((toDo) =>
+        toDo.description === strikedToDo.description
+          ? { ...toDo, isDone: !toDo.isDone }
+          : toDo
+      )
+    );
+
+  const handleDelete = (deletedToDo: ToDo) =>
+    setToDos(
+      toDos.filter((toDo) => toDo.description !== deletedToDo.description)
+    );
+
   return (
     <>
       <ToDoList
         toDoList={toDos}
-        onDelete={(deletedToDo) =>
-          setToDos(
-            toDos.map((toDo) =>
-              toDo.description === deletedToDo.description
-                ? { ...toDo, isDone: !toDo.isDone }
-                : toDo
-            )
-          )
-        }
+        onStrike={handleStrike}
+        onDelete={handleDelete}
       />
     </>
   );

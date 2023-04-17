@@ -4,10 +4,13 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 
 interface Props {
   toDoList: ToDo[];
+  onStrike: (strikedToDo: ToDo) => void;
   onDelete: (deletedToDo: ToDo) => void;
 }
 
-const ToDoList = ({ toDoList, onDelete }: Props) => {
+const ToDoList = ({ toDoList, onStrike, onDelete }: Props) => {
+  //   console.log(toDoList[0].isDeleted);
+
   return (
     <>
       <ul className="list-group m-3">
@@ -18,7 +21,7 @@ const ToDoList = ({ toDoList, onDelete }: Props) => {
                 <input
                   type="checkbox"
                   className="me-2"
-                  onClick={() => onDelete(toDo)}
+                  onClick={() => onStrike(toDo)}
                 />
 
                 <div
@@ -33,10 +36,20 @@ const ToDoList = ({ toDoList, onDelete }: Props) => {
               </div>
               <div className="d-flex ps-5 align-items-center">
                 <div className="me-1">
-                  <AiOutlineEdit />
+                  <button
+                    className="btn border-0"
+                    onClick={() => console.log("Edited.")}
+                  >
+                    <AiOutlineEdit />
+                  </button>
                 </div>
-                <div className="ms-1">
-                  <AiOutlineDelete />
+                <div className="">
+                  <button
+                    className="btn border-0"
+                    onClick={() => onDelete(toDo)}
+                  >
+                    <AiOutlineDelete color="red" />
+                  </button>
                 </div>
               </div>
             </div>
