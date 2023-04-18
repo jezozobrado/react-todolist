@@ -89,7 +89,7 @@ const App = () => {
 
   return (
     <>
-      <ToDoList toDos={toDos} onDelete={handleDelete} />
+      <ToDoList toDos={toDos} onDelete={handleDelete} onStrike={handleStrike} />
     </>
   );
 };
