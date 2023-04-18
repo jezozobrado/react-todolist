@@ -5,9 +5,10 @@ import { MdOutlineCancel } from "react-icons/md";
 
 interface Props {
   toDos: ToDo[];
+  onDelete: (deletedToDo: ToDo) => void;
 }
 
-const ToDoList = ({ toDos }: Props) => {
+const ToDoList = ({ toDos, onDelete }: Props) => {
   console.table(toDos);
   return (
     <section>
@@ -29,7 +30,7 @@ const ToDoList = ({ toDos }: Props) => {
           </div>
 
           <div className="">
-            <button className="btn">
+            <button className="btn" onClick={() => onDelete(toDo)}>
               <AiOutlineDelete color="red" size={20} />
             </button>
           </div>
