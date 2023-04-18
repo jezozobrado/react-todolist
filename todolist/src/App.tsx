@@ -89,7 +89,12 @@ const App = () => {
 
   return (
     <>
-      <ToDoList toDos={toDos} onDelete={handleDelete} onStrike={handleStrike} />
+      <ToDoList
+        toDos={toDos}
+        onDelete={handleDelete}
+        onStrike={handleStrike}
+        onEdit={handleEdit}
+      />
     </>
   );
 };

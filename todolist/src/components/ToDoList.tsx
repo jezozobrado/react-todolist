@@ -7,16 +7,19 @@ interface Props {
   toDos: ToDo[];
   onDelete: (deletedToDo: ToDo) => void;
   onStrike: (StrikedToDo: ToDo) => void;
+  onEdit: (EditedToDo: ToDo) => void;
 }
 
-const ToDoList = ({ toDos, onDelete, onStrike }: Props) => {
+const ToDoList = ({ toDos, onDelete, onStrike, onEdit }: Props) => {
   console.table(toDos);
   return (
     <section>
       {toDos.map((toDo) => (
         <div className="todo__container mb-3">
           <div className="ms-2 mt-1">
-            <input type="checkbox" onClick={() => onStrike(toDo)}></input>
+            {!toDo.isEdited && (
+              <input type="checkbox" onClick={() => onStrike(toDo)}></input>
+            )}
           </div>
 
           <div className="d-flex flex-column my-0">
@@ -33,15 +36,27 @@ const ToDoList = ({ toDos, onDelete, onStrike }: Props) => {
           </div>
 
           <div className="">
-            <button className="btn">
-              <AiOutlineEdit size={20} />
-            </button>
+            {!toDo.isEdited ? (
+              <button className="btn" onClick={() => onEdit(toDo)}>
+                <AiOutlineEdit size={20} />
+              </button>
+            ) : (
+              <button className="btn">
+                <VscSaveAs size={20} />
+              </button>
+            )}
           </div>
 
           <div className="">
-            <button className="btn" onClick={() => onDelete(toDo)}>
-              <AiOutlineDelete color="red" size={20} />
-            </button>
+            {!toDo.isEdited ? (
+              <button className="btn" onClick={() => onDelete(toDo)}>
+                <AiOutlineDelete color="red" size={20} />
+              </button>
+            ) : (
+              <button className="btn">
+                <MdOutlineCancel size={20} color="red" />
+              </button>
+            )}
           </div>
         </div>
       ))}
