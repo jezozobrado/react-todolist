@@ -1,5 +1,12 @@
 body {
   display: flex;
   justify-content: center;
-  width: 100vw;
+  align-items: center;
+  font-size: 62.5%;
+  /* width: 100vw; */
+}
+
+.todolist__container {
+  width: 50vw;
+  font-size: 1rem;
 }
