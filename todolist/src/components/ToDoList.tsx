@@ -29,30 +29,58 @@ const ToDoList = ({
             )}
           </div>
 
-          <div className="d-flex flex-column my-0">
-            <div
-              className={
-                toDo.isDone
-                  ? "text-decoration-line-through"
-                  : "text-decoration-none"
-              }
-            >
-              <p className="mb-0">{toDo.title}</p>
-              <p className="fw-light fs-4">{toDo.description}</p>
-            </div>
-          </div>
-
-          <div className="">
-            {!toDo.isEdited ? (
-              <button className="btn" onClick={() => onEdit(toDo)}>
-                <AiOutlineEdit size={20} />
-              </button>
-            ) : (
-              <button className="btn">
-                <VscSaveAs size={20} />
-              </button>
-            )}
-          </div>
+          {!toDo.isEdited ? (
+            <>
+              <div className="d-flex flex-column my-0">
+                <div
+                  className={
+                    toDo.isDone
+                      ? "text-decoration-line-through"
+                      : "text-decoration-none"
+                  }
+                >
+                  <p className="fw-bold mb-0">{toDo.title}</p>
+                  <p className="fw-light fs-4">{toDo.description}</p>
+                </div>
+              </div>
+              <div className="">
+                {!toDo.isEdited ? (
+                  <button className="btn" onClick={() => onEdit(toDo)}>
+                    <AiOutlineEdit size={20} />
+                  </button>
+                ) : (
+                  <button className="btn">
+                    <VscSaveAs size={20} />
+                  </button>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="d-flex flex-column my-0">
+                <input
+                  type="text"
+                  className="fs-4 ps-0  form-control fw-bold mb-0 border-0 shadow-none"
+                  defaultValue={toDo.title}
+                />
+                <textarea
+                  className=" fs-4 ps-0 form-control fw-light mb-0 border-0 shadow-none"
+                  defaultValue={toDo.description}
+                />
+              </div>
+              <div className="">
+                {!toDo.isEdited ? (
+                  <button className="btn" onClick={() => onEdit(toDo)}>
+                    <AiOutlineEdit size={20} />
+                  </button>
+                ) : (
+                  <button className="btn">
+                    <VscSaveAs size={20} />
+                  </button>
+                )}
+              </div>
+            </>
+          )}
 
           <div className="">
             {!toDo.isEdited ? (
