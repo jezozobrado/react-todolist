@@ -1,12 +1,36 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 62.5%;
-  /* width: 100vw; */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
 }
 
-.todolist__container {
-  width: 50vw;
-  font-size: 1rem;
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin-top: 10rem;
+}
+
+.todo__container {
+  display: grid;
+  grid-template-columns: 1fr 20fr 1fr 1fr;
+  /* justify-content: top; */
+  align-items: top;
+  width: 90vw;
+  margin: auto;
+  border-bottom: 1px solid lightgrey;
+}
+
+@media screen and (min-width: 1024px) {
+  .todo__container {
+    width: 70rem;
+    font-size: 1.5rem;
+  }
+}
+
+.btn {
+  border: none;
+  margin: 0;
+  padding: 0;
 }

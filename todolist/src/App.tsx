@@ -13,8 +13,9 @@ export interface ToDo {
 let data = [
   {
     id: 1,
-    title: "wash",
-    description: "Wash dishes at pumunta sa palengke putaingina",
+    title: "WASJ",
+    description:
+      "Wash dishes at pumunta sa palengke putainginadsaddddddddddddddaaa11 aaaaaaaaaaaaaaaaaa",
     isDone: false,
     isEdited: false,
     isHovered: false,
@@ -88,14 +89,7 @@ const App = () => {
 
   return (
     <>
-      <ToDoList
-        toDoList={toDos}
-        onStrike={handleStrike}
-        onDelete={handleDelete}
-        onHover={handleHover}
-        onEdit={handleEdit}
-        onSave={handleSave}
-      />
+      <ToDoList toDos={toDos} />
     </>
   );
 };
