@@ -76,6 +76,16 @@ const App = () => {
     );
   };
 
+  const handleSave = (savedToDo: ToDo) => {
+    setToDos(
+      toDos.map((toDo) =>
+        toDo.description === savedToDo.description
+          ? { ...toDo, isEdited: !toDo.isEdited }
+          : toDo
+      )
+    );
+  };
+
   return (
     <>
       <ToDoList
@@ -84,6 +94,7 @@ const App = () => {
         onDelete={handleDelete}
         onHover={handleHover}
         onEdit={handleEdit}
+        onSave={handleSave}
       />
     </>
   );
