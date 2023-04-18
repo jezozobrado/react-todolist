@@ -87,6 +87,15 @@ const App = () => {
     );
   };
 
+  const handleCancelEdit = (cancelEditedToDo: ToDo) => {
+    setToDos(
+      toDos.map((toDo) =>
+        toDo.description === cancelEditedToDo.description
+          ? { ...toDo, isEdited: !toDo.isEdited }
+          : toDo
+      )
+    );
+  };
   return (
     <>
       <ToDoList
@@ -94,6 +103,7 @@ const App = () => {
         onDelete={handleDelete}
         onStrike={handleStrike}
         onEdit={handleEdit}
+        onCancelEdit={handleCancelEdit}
       />
     </>
   );
