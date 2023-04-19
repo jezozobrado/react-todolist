@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ToDoList from "./components/ToDoList";
 import { FieldValues } from "react-hook-form";
+import ToDoForm from "./components/ToDoForm";
 
 export interface ToDo {
   id: number;
@@ -111,14 +112,17 @@ const App = () => {
 
   return (
     <>
-      <ToDoList
-        toDos={toDos}
-        onDelete={handleDelete}
-        onStrike={handleStrike}
-        onEdit={handleEdit}
-        onCancelEdit={handleCancelEdit}
-        onSave={handleSave}
-      />
+      <div className="container">
+        <ToDoList
+          toDos={toDos}
+          onDelete={handleDelete}
+          onStrike={handleStrike}
+          onEdit={handleEdit}
+          onCancelEdit={handleCancelEdit}
+          onSave={handleSave}
+        />
+        <ToDoForm />
+      </div>
     </>
   );
 };

@@ -12,18 +12,22 @@ body {
   margin-top: 10rem;
 }
 
+.container {
+  width: 90vw;
+  margin: auto;
+}
+
 .todo__container {
   display: grid;
   grid-template-columns: 1fr 20fr 1fr 1fr;
   /* justify-content: top; */
   align-items: top;
-  width: 90vw;
-  margin: auto;
+  align-self: center;
   border-bottom: 1px solid lightgrey;
 }
 
 @media screen and (min-width: 1024px) {
-  .todo__container {
+  .container {
     width: 70rem;
     font-size: 1.5rem;
   }
