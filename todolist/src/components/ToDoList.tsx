@@ -22,7 +22,7 @@ const ToDoList = ({
   onCancelEdit,
   onSave,
 }: Props) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (savedToDo: ToDo, data: FieldValues) => {
     console.log(savedToDo, data);
@@ -53,7 +53,10 @@ const ToDoList = ({
 
               <button
                 className="btn align-self-start"
-                onClick={() => onEdit(toDo)}
+                onClick={() => {
+                  onEdit(toDo);
+                  reset({ title: toDo.title, description: toDo.description });
+                }}
               >
                 <AiOutlineEdit size={20} />
               </button>
