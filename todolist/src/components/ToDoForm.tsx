@@ -10,8 +10,9 @@ interface Props {
 
 const ToDoForm = ({ toDos, setToDos }: Props) => {
   const [isLogging, setIsLogging] = useState(false);
+  const [data, setData] = useState({ title: "", description: "" });
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
@@ -27,6 +28,8 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
       },
     ]);
     setIsLogging(!isLogging);
+    // setData({ title: "", description: "" });
+    reset({ title: "", description: "" });
   };
 
   return (
@@ -45,6 +48,8 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
                 type="text"
                 className="form-control border-0 shadow-none fs-3 fw-bold"
                 placeholder="Title"
+                value={data.title}
+                onChange={(e) => setData({ ...data, title: e.target.value })}
               />
               <input
                 {...register("description")}
@@ -57,7 +62,10 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
             <div className="d-flex justify-content-end border-top pt-3">
               <button
                 className="btn btn-secondary fs-4 py-2 px-3"
-                onClick={() => setIsLogging(!isLogging)}
+                onClick={() => {
+                  setIsLogging(!isLogging);
+                  reset({ title: "", description: "" });
+                }}
               >
                 Cancel
               </button>
