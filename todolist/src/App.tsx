@@ -121,7 +121,7 @@ const App = () => {
           onCancelEdit={handleCancelEdit}
           onSave={handleSave}
         />
-        <ToDoForm />
+        <ToDoForm toDos={toDos} setToDos={setToDos} />
       </div>
     </>
   );

@@ -1,11 +1,34 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { GrAdd } from "react-icons/gr";
+import { ToDo } from "../App";
 
-const ToDoForm = () => {
+interface Props {
+  toDos: ToDo[];
+  setToDos: (toDos: ToDo[]) => void;
+}
+
+const ToDoForm = ({ toDos, setToDos }: Props) => {
   const [isLogging, setIsLogging] = useState(false);
 
   const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data: FieldValues) => {
+    console.log(data);
+    setToDos([
+      ...toDos,
+      {
+        id: toDos.length + 1,
+        title: data.title,
+        description: data.description,
+        isDone: false,
+        isEdited: false,
+        isHovered: false,
+      },
+    ]);
+    setIsLogging(!isLogging);
+  };
+
   return (
     <>
       {!isLogging ? (
@@ -15,7 +38,7 @@ const ToDoForm = () => {
       ) : (
         <>
           <div className="mb-5 border p-3 rounded-4">
-            <form>
+            <form id="addForm" onSubmit={handleSubmit(onSubmit)}>
               <input
                 {...register("title")}
                 id="todo-title"
@@ -39,6 +62,7 @@ const ToDoForm = () => {
                 Cancel
               </button>
               <button
+                form="addForm"
                 type="submit"
                 className="btn btn-primary fs-4 py-2 px-3 ms-2"
               >
