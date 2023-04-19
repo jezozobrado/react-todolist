@@ -2,6 +2,15 @@ import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { GrAdd } from "react-icons/gr";
 import { ToDo } from "../App";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  title: z.string().min(1, { message: "Title is required." }),
+  description: z.string().min(1, { message: "Description is required." }),
+});
+
+type ToDoData = z.infer<typeof schema>;
 
 interface Props {
   toDos: ToDo[];
@@ -12,7 +21,14 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
   const [isLogging, setIsLogging] = useState(false);
   const [data, setData] = useState({ title: "", description: "" });
 
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm<ToDoData>({
+    resolver: zodResolver(schema),
+  });
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
@@ -28,7 +44,7 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
       },
     ]);
     setIsLogging(!isLogging);
-    // setData({ title: "", description: "" });
+
     reset({ title: "", description: "" });
   };
 
@@ -51,6 +67,9 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
                 value={data.title}
                 onChange={(e) => setData({ ...data, title: e.target.value })}
               />
+              {errors.title && (
+                <p className="text-danger ms-2">{errors.title.message}</p>
+              )}
               <input
                 {...register("description")}
                 id="todo-description"
@@ -58,6 +77,9 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
                 className="form-control border-0 shadow-none fs-4 fw-light"
                 placeholder="Description"
               />
+              {errors.description && (
+                <p className="text-danger ms-2">{errors.description.message}</p>
+              )}
             </form>
             <div className="d-flex justify-content-end border-top pt-3">
               <button
@@ -70,6 +92,7 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
                 Cancel
               </button>
               <button
+                disabled={!isValid}
                 form="addForm"
                 type="submit"
                 className="btn btn-primary fs-4 py-2 px-3 ms-2"
