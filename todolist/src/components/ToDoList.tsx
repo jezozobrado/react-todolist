@@ -81,8 +81,7 @@ const ToDoList = ({
                   />
                   <textarea
                     {...register("description")}
-                    className=" fs-4 ps-0 form-control fw-light mb-0 border-0 shadow-none"
-                    //   defaultValue={toDo.description}
+                    className=" fs-4 ps-0 form-control fw-light mb-0 border-0 shadow-none text-wrap"
                   />
                 </div>
               </form>
