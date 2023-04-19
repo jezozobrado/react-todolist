@@ -3,6 +3,7 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { VscSaveAs } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
 import { useForm, FieldValues } from "react-hook-form";
+import { useState } from "react";
 
 interface Props {
   toDos: ToDo[];
@@ -10,7 +11,7 @@ interface Props {
   onStrike: (strikedToDo: ToDo) => void;
   onEdit: (editedToDo: ToDo) => void;
   onCancelEdit: (cancelEditedToDo: ToDo) => void;
-  onEditSubmit: (editedtoDo: ToDo, data: FieldValues) => void;
+  onSave: (savedtoDo: ToDo, data: any) => void;
 }
 
 const ToDoList = ({
@@ -19,11 +20,13 @@ const ToDoList = ({
   onStrike,
   onEdit,
   onCancelEdit,
-  onEditSubmit,
+  onSave,
 }: Props) => {
-  console.table(toDos);
-
   const { register, handleSubmit } = useForm();
+
+  const onSubmit = (savedToDo: ToDo, data: FieldValues) => {
+    console.log(savedToDo, data);
+  };
 
   return (
     <section>
@@ -63,19 +66,29 @@ const ToDoList = ({
             </>
           ) : (
             <>
-              <div className="d-flex flex-column my-0">
-                <input
-                  type="text"
-                  className="fs-4 ps-0  form-control fw-bold mb-0 border-0 shadow-none"
-                  defaultValue={toDo.title}
-                />
-                <textarea
-                  className=" fs-4 ps-0 form-control fw-light mb-0 border-0 shadow-none"
-                  defaultValue={toDo.description}
-                />
-              </div>
+              <form
+                id="editForm"
+                onSubmit={handleSubmit((data) => onSubmit(toDo, data))}
+              >
+                <div className="d-flex flex-column my-0">
+                  <input
+                    {...register("title")}
+                    type="text"
+                    className="fs-4 ps-0  form-control fw-bold mb-0 border-0 shadow-none"
+                  />
+                  <textarea
+                    {...register("description")}
+                    className=" fs-4 ps-0 form-control fw-light mb-0 border-0 shadow-none"
+                    //   defaultValue={toDo.description}
+                  />
+                </div>
+              </form>
 
-              <button className="btn align-self-start">
+              <button
+                form="editForm"
+                type="submit"
+                className="btn align-self-start"
+              >
                 <VscSaveAs size={20} />
               </button>
               <button

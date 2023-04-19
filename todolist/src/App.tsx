@@ -78,15 +78,15 @@ const App = () => {
     );
   };
 
-  const handleSave = (savedToDo: ToDo) => {
-    setToDos(
-      toDos.map((toDo) =>
-        toDo.description === savedToDo.description
-          ? { ...toDo, isEdited: !toDo.isEdited }
-          : toDo
-      )
-    );
-  };
+  // const handleSave = (savedToDo: ToDo) => {
+  //   setToDos(
+  //     toDos.map((toDo) =>
+  //       toDo.description === savedToDo.description
+  //         ? { ...toDo, isEdited: !toDo.isEdited }
+  //         : toDo
+  //     )
+  //   );
+  // };
 
   const handleCancelEdit = (cancelEditedToDo: ToDo) => {
     setToDos(
@@ -98,17 +98,12 @@ const App = () => {
     );
   };
 
-  const handleEditSubmit = (editedToDo: ToDo, data: FieldValues) => {
-    console.log(data);
+  const handleSave = (savedToDo: ToDo, data: FieldValues) => {
+    console.log(savedToDo, data);
     setToDos(
       toDos.map((toDo) =>
-        toDo.id === editedToDo.id
-          ? {
-              ...toDo,
-              title: data.title,
-              description: data.description,
-              isEdited: !toDo.isEdited,
-            }
+        toDo.description === savedToDo.description
+          ? { ...toDo, isEdited: !toDo.isEdited }
           : toDo
       )
     );
@@ -122,7 +117,7 @@ const App = () => {
         onStrike={handleStrike}
         onEdit={handleEdit}
         onCancelEdit={handleCancelEdit}
-        onEditSubmit={handleEditSubmit}
+        onSave={handleSave}
       />
     </>
   );
