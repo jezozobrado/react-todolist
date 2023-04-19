@@ -68,7 +68,7 @@ const App = () => {
   };
 
   const handleHover = (hoveredToDo: ToDo) => {
-    // console.log("Hovered!");
+    console.log("Hovered!");
 
     setToDos(
       toDos.map((toDo) =>
@@ -78,16 +78,6 @@ const App = () => {
       )
     );
   };
-
-  // const handleSave = (savedToDo: ToDo) => {
-  //   setToDos(
-  //     toDos.map((toDo) =>
-  //       toDo.description === savedToDo.description
-  //         ? { ...toDo, isEdited: !toDo.isEdited }
-  //         : toDo
-  //     )
-  //   );
-  // };
 
   const handleCancelEdit = (cancelEditedToDo: ToDo) => {
     setToDos(
@@ -124,6 +114,7 @@ const App = () => {
           onEdit={handleEdit}
           onCancelEdit={handleCancelEdit}
           onSave={handleSave}
+          onHover={handleHover}
         />
         <ToDoForm toDos={toDos} setToDos={setToDos} />
       </div>

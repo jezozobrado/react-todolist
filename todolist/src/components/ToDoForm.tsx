@@ -51,7 +51,7 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
   return (
     <>
       {!isLogging ? (
-        <button className="btn" onClick={() => setIsLogging(!isLogging)}>
+        <button className="btn mb-5" onClick={() => setIsLogging(!isLogging)}>
           <GrAdd size={15} />
         </button>
       ) : (

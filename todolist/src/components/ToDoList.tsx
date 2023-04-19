@@ -11,6 +11,7 @@ interface Props {
   onEdit: (editedToDo: ToDo) => void;
   onCancelEdit: (cancelEditedToDo: ToDo) => void;
   onSave: (savedtoDo: ToDo, data: FieldValues) => void;
+  onHover: (hoveredToDo: ToDo) => void;
 }
 
 const ToDoList = ({
@@ -20,6 +21,7 @@ const ToDoList = ({
   onEdit,
   onCancelEdit,
   onSave,
+  onHover,
 }: Props) => {
   const { register, handleSubmit, reset } = useForm();
 
@@ -32,7 +34,12 @@ const ToDoList = ({
   return (
     <section>
       {toDos.map((toDo) => (
-        <div key={toDo.id} className="todo__container mb-3">
+        <div
+          key={toDo.id}
+          className="todo__container mb-3"
+          onMouseEnter={() => onHover(toDo)}
+          onMouseLeave={() => onHover(toDo)}
+        >
           <div className="ms-2 mt-1">
             {!toDo.isEdited && (
               <input type="checkbox" onClick={() => onStrike(toDo)}></input>
