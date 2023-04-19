@@ -22,7 +22,7 @@ const ToDoList = ({
   return (
     <section>
       {toDos.map((toDo) => (
-        <div className="todo__container mb-3">
+        <div key={toDo.id} className="todo__container mb-3">
           <div className="ms-2 mt-1">
             {!toDo.isEdited && (
               <input type="checkbox" onClick={() => onStrike(toDo)}></input>
@@ -31,29 +31,29 @@ const ToDoList = ({
 
           {!toDo.isEdited ? (
             <>
-              <div className="d-flex flex-column my-0">
-                <div
-                  className={
-                    toDo.isDone
-                      ? "text-decoration-line-through"
-                      : "text-decoration-none"
-                  }
-                >
-                  <p className="fw-bold mb-0">{toDo.title}</p>
-                  <p className="fw-light fs-4">{toDo.description}</p>
-                </div>
+              <div
+                className={
+                  toDo.isDone
+                    ? "d-flex flex-column my-0 text-decoration-line-through"
+                    : "d-flex flex-column my-0 text-decoration-none"
+                }
+              >
+                <p className="fw-bold mb-0">{toDo.title}</p>
+                <p className="fw-light fs-4">{toDo.description}</p>
               </div>
-              <div className="">
-                {!toDo.isEdited ? (
-                  <button className="btn" onClick={() => onEdit(toDo)}>
-                    <AiOutlineEdit size={20} />
-                  </button>
-                ) : (
-                  <button className="btn">
-                    <VscSaveAs size={20} />
-                  </button>
-                )}
-              </div>
+
+              <button
+                className="btn align-self-start"
+                onClick={() => onEdit(toDo)}
+              >
+                <AiOutlineEdit size={20} />
+              </button>
+              <button
+                className="btn align-self-start"
+                onClick={() => onDelete(toDo)}
+              >
+                <AiOutlineDelete color="red" size={20} />
+              </button>
             </>
           ) : (
             <>
@@ -68,31 +68,18 @@ const ToDoList = ({
                   defaultValue={toDo.description}
                 />
               </div>
-              <div className="">
-                {!toDo.isEdited ? (
-                  <button className="btn" onClick={() => onEdit(toDo)}>
-                    <AiOutlineEdit size={20} />
-                  </button>
-                ) : (
-                  <button className="btn">
-                    <VscSaveAs size={20} />
-                  </button>
-                )}
-              </div>
-            </>
-          )}
 
-          <div className="">
-            {!toDo.isEdited ? (
-              <button className="btn" onClick={() => onDelete(toDo)}>
-                <AiOutlineDelete color="red" size={20} />
+              <button className="btn align-self-start">
+                <VscSaveAs size={20} />
               </button>
-            ) : (
-              <button className="btn" onClick={() => onCancelEdit(toDo)}>
+              <button
+                className="btn align-self-start"
+                onClick={() => onCancelEdit(toDo)}
+              >
                 <MdOutlineCancel size={20} color="red" />
               </button>
-            )}
-          </div>
+            </>
+          )}
         </div>
       ))}
     </section>
