@@ -3,7 +3,6 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { VscSaveAs } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
 import { useForm, FieldValues } from "react-hook-form";
-import { useState } from "react";
 
 interface Props {
   toDos: ToDo[];
@@ -11,7 +10,7 @@ interface Props {
   onStrike: (strikedToDo: ToDo) => void;
   onEdit: (editedToDo: ToDo) => void;
   onCancelEdit: (cancelEditedToDo: ToDo) => void;
-  onSave: (savedtoDo: ToDo, data: any) => void;
+  onSave: (savedtoDo: ToDo, data: FieldValues) => void;
 }
 
 const ToDoList = ({
@@ -24,9 +23,11 @@ const ToDoList = ({
 }: Props) => {
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (savedToDo: ToDo, data: FieldValues) => {
-    console.log(savedToDo, data);
-  };
+  const isEditing = toDos.reduce((acc, cur) => cur.isEdited || acc, false);
+
+  //   const onSubmit = (savedToDo: ToDo, data: FieldValues) => {
+  //     console.log(savedToDo, data);
+  //   };
 
   return (
     <section>
@@ -51,37 +52,44 @@ const ToDoList = ({
                 <p className="fw-light fs-4">{toDo.description}</p>
               </div>
 
-              <button
-                className="btn align-self-start"
-                onClick={() => {
-                  onEdit(toDo);
-                  reset({ title: toDo.title, description: toDo.description });
-                }}
-              >
-                <AiOutlineEdit size={20} />
-              </button>
-              <button
-                className="btn align-self-start"
-                onClick={() => onDelete(toDo)}
-              >
-                <AiOutlineDelete color="red" size={20} />
-              </button>
+              {!isEditing && (
+                <>
+                  <button
+                    className="btn align-self-start"
+                    onClick={() => {
+                      onEdit(toDo);
+                      reset({
+                        title: toDo.title,
+                        description: toDo.description,
+                      });
+                    }}
+                  >
+                    <AiOutlineEdit size={20} />
+                  </button>
+                  <button
+                    className="btn align-self-start"
+                    onClick={() => onDelete(toDo)}
+                  >
+                    <AiOutlineDelete color="red" size={20} />
+                  </button>
+                </>
+              )}
             </>
           ) : (
             <>
               <form
                 id="editForm"
-                onSubmit={handleSubmit((data) => onSubmit(toDo, data))}
+                onSubmit={handleSubmit((data) => onSave(toDo, data))}
               >
                 <div className="d-flex flex-column my-0">
                   <input
                     {...register("title")}
                     type="text"
-                    className="fs-4 ps-0  form-control fw-bold mb-0 border-0 shadow-none"
+                    className="fs-4 ps-0  p-0 form-control fw-bold mb-0 border-0 shadow-none"
                   />
                   <textarea
                     {...register("description")}
-                    className=" fs-4 ps-0 form-control fw-light mb-0 border-0 shadow-none text-wrap"
+                    className=" fs-4 ps-0 p-0 form-control fw-light mb-0 border-0 shadow-none text-wrap"
                   />
                 </div>
               </form>

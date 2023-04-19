@@ -92,7 +92,7 @@ const ToDoForm = ({ toDos, setToDos }: Props) => {
                 Cancel
               </button>
               <button
-                disabled={!isValid}
+                // disabled={!isValid}
                 form="addForm"
                 type="submit"
                 className="btn btn-primary fs-4 py-2 px-3 ms-2"

@@ -100,11 +100,15 @@ const App = () => {
   };
 
   const handleSave = (savedToDo: ToDo, data: FieldValues) => {
-    console.log(savedToDo, data);
     setToDos(
       toDos.map((toDo) =>
         toDo.description === savedToDo.description
-          ? { ...toDo, isEdited: !toDo.isEdited }
+          ? {
+              ...toDo,
+              isEdited: !toDo.isEdited,
+              title: data.title,
+              description: data.description,
+            }
           : toDo
       )
     );
