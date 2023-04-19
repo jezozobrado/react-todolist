@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ToDoList from "./components/ToDoList";
+import { FieldValues } from "react-hook-form";
 
 export interface ToDo {
   id: number;
@@ -66,7 +67,7 @@ const App = () => {
   };
 
   const handleHover = (hoveredToDo: ToDo) => {
-    console.log("Hovered!");
+    // console.log("Hovered!");
 
     setToDos(
       toDos.map((toDo) =>
@@ -96,6 +97,23 @@ const App = () => {
       )
     );
   };
+
+  const handleEditSubmit = (editedToDo: ToDo, data: FieldValues) => {
+    console.log(data);
+    setToDos(
+      toDos.map((toDo) =>
+        toDo.id === editedToDo.id
+          ? {
+              ...toDo,
+              title: data.title,
+              description: data.description,
+              isEdited: !toDo.isEdited,
+            }
+          : toDo
+      )
+    );
+  };
+
   return (
     <>
       <ToDoList
@@ -104,6 +122,7 @@ const App = () => {
         onStrike={handleStrike}
         onEdit={handleEdit}
         onCancelEdit={handleCancelEdit}
+        onEditSubmit={handleEditSubmit}
       />
     </>
   );

@@ -2,6 +2,7 @@ import { ToDo } from "../App";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { VscSaveAs } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
+import { useForm, FieldValues } from "react-hook-form";
 
 interface Props {
   toDos: ToDo[];
@@ -9,6 +10,7 @@ interface Props {
   onStrike: (strikedToDo: ToDo) => void;
   onEdit: (editedToDo: ToDo) => void;
   onCancelEdit: (cancelEditedToDo: ToDo) => void;
+  onEditSubmit: (editedtoDo: ToDo, data: FieldValues) => void;
 }
 
 const ToDoList = ({
@@ -17,8 +19,12 @@ const ToDoList = ({
   onStrike,
   onEdit,
   onCancelEdit,
+  onEditSubmit,
 }: Props) => {
   console.table(toDos);
+
+  const { register, handleSubmit } = useForm();
+
   return (
     <section>
       {toDos.map((toDo) => (
